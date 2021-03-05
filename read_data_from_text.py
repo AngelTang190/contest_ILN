@@ -33,11 +33,13 @@ class User():
         self.end_time=end_time
         self.waypoints=waypoints
         self.accelerometer=accelerometer
+        
     def duration(self):
         end=dt.fromtimestamp(self.end_time/1000)
         start=dt.fromtimestamp(self.start_time/1000)
         duration=end-start
         return duration
+    
     def print_waypoints(self):
         print("\nWaypoints of User ",self.index,":\n") 
         print("\t","%-20s"%"Waypoint X","%-20s"%"Waypoint Y")
@@ -45,6 +47,7 @@ class User():
             print("\t","%-20f"%self.waypoints[i].waypoint_x,
                   "%-20f"%self.waypoints[i].waypoint_y)
         print("\n")
+        
     def list_waypoints(self):
         list_1=[]
         list_2=[]
@@ -52,6 +55,7 @@ class User():
             list_1.append(self.waypoints[i].waypoint_x)
             list_2.append(self.waypoints[i].waypoint_y)
         return list_1,list_2
+    
     def print_acceleration(self):
         print("\nAcceleration of User ",self.index,":\n") 
         print("\t","%-20s"%"Acceleration X","%-20s"%"Acceleration Y",
@@ -61,6 +65,7 @@ class User():
                   "%-20f"%self.accelerometer[i].acceleration_y,
                   "%-20f"%self.accelerometer[i].acceleration_z)
         print("\n")    
+        
     def list_acceleration(self):
         list_1=[]
         list_2=[]
