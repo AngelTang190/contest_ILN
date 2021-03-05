@@ -128,7 +128,7 @@ img = plt.imread("trial_map.png")
 fig,ax = plt.subplots()
 ax.imshow(img,extent=[0, map_width, 0, map_height])
 u1_x_waypoints, u1_y_waypoints=u1.list_waypoints()
-plt.plot(u1_x_waypoints, u1_y_waypoints, color="red")
+plt.plot(u1_x_waypoints, u1_y_waypoints,'ro--', linewidth=0.5, markersize=2)
 plt.show()
 
 #Plot acceleration
