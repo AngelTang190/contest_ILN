@@ -1,3 +1,4 @@
+#This file converts text files to csv files
 # -*- coding: utf-8 -*-
 """
 Spyder Editor
