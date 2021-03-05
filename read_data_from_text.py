@@ -5,7 +5,8 @@ Created on Fri Mar  5 14:38:22 2021
 @author: ASUS
 """
 from datetime import datetime as dt
-
+import matplotlib.pyplot as plt
+import json
 
 #Function to print list
 def print_list(new_list):
@@ -37,9 +38,19 @@ class User():
             print("\t","%-20f"%self.waypoints[i].waypoint_x,
                   "%-20f"%self.waypoints[i].waypoint_y)
         print("\n")
-    
+    def list_waypoints_x(self):
+        list=[]
+        for i in range(len(self.waypoints)):
+            list.append(self.waypoints[i].waypoint_x)
+        return list
+    def list_waypoints_y(self):
+        list=[]
+        for i in range(len(self.waypoints)):
+            list.append(self.waypoints[i].waypoint_y)
+        return list            
+            
 input_file='trial_copy.txt'     
-
+info_file='trial_info.json'
 # max_col=0
 # with open(input_file,'r') as f:
 #     for row in f:
@@ -76,4 +87,16 @@ u1=User(1,int(new_list[0][1][10:]),           #Starting time
 print("\nDuration used by User 1 is ",u1.duration())  #Print user 1 duration
 u1.print_waypoints()
 
+#Visualise waypoints on map
+with open(info_file) as f: #Read floor.json
+  mapdict = json.load(f)
 
+map_height=mapdict['map_info']['height'] 
+map_width=mapdict['map_info']['width']
+
+#Plot map and waypoints
+img = plt.imread("trial_map.png")
+fig,ax = plt.subplots()
+ax.imshow(img,extent=[0, map_width, 0, map_height])
+plt.plot(u1.list_waypoints_x(), u1.list_waypoints_y(), color="red")
+plt.show()
