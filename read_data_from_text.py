@@ -4,6 +4,8 @@ Created on Fri Mar  5 14:38:22 2021
 
 @author: ASUS
 """
+from datetime import datetime as dt
+
 
 #Function to print list
 def print_list(new_list):
@@ -12,6 +14,30 @@ def print_list(new_list):
             print(new_list[i][j],end=" ")
         print("\n")
 
+class WayPoints():
+    def __init__(self,waypoint_x,waypoint_y):
+        self.waypoint_x=waypoint_x
+        self.waypoint_y=waypoint_y
+
+class User():
+    def __init__(self,index,start_time,end_time,waypoints):
+        self.index=index
+        self.start_time=start_time
+        self.end_time=end_time
+        self.waypoints=waypoints
+    def duration(self):
+        end=dt.fromtimestamp(self.end_time/1000)
+        start=dt.fromtimestamp(self.start_time/1000)
+        duration=end-start
+        return duration
+    def print_waypoints(self):
+        print("\nWaypoints of User ",self.index,":\n") 
+        print("\t","%-20s"%"Waypoint X","%-20s"%"Waypoint Y")
+        for i in range(len(self.waypoints)):
+            print("\t","%-20f"%self.waypoints[i].waypoint_x,
+                  "%-20f"%self.waypoints[i].waypoint_y)
+        print("\n")
+    
 input_file='trial_copy.txt'     
 
 # max_col=0
@@ -34,6 +60,20 @@ with open(input_file,'r') as f:
                 row_list.append('0')
         new_list.append(row_list)
         
+#Search data within list
+waypoints=[]
+for i in range(len(new_list)):
+    if new_list[i][1]=="TYPE_WAYPOINT":
+        waypoints.append(WayPoints(float(new_list[i][2]), 
+                                   float(new_list[i][3])))
+        
+#Obtain starting time and ending time        
+u1=User(1,int(new_list[0][1][10:]),           #Starting time
+        int(new_list[-1][1][8:]),           #Ending time
+        waypoints)
 
+#Printing
+print("\nDuration used by User 1 is ",u1.duration())  #Print user 1 duration
+u1.print_waypoints()
 
 
